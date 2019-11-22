@@ -15,7 +15,7 @@ class UsbWebcam:
             _, frame = self.vc.read()
             return frame
         finally:
-            self.vc.CloseCamera()
+            self.CloseCamera()
             
             
 
@@ -39,4 +39,4 @@ class UsbWebcam:
             cv2.destroyWindow("preview")
 
         finally:
-            self.vc.CloseCamera()
+            self.CloseCamera()
