@@ -2,7 +2,7 @@ from cv2 import cv2
 
 class UsbWebcam:
     def __init__(self):
-        print('Initing Webcam...')
+        print('Initiating Webcam...')
         self.vc = cv2.VideoCapture(0)
         print('Webcam initiated')
         
