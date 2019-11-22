@@ -4,5 +4,5 @@ class AudioPlayer:
     def __init__(self):
         pass
 
-    def play(self, filePath: str):
+    def play(self, filePath: str) -> None:
         playsound(filePath)

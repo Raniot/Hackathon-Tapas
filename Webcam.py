@@ -7,7 +7,7 @@ class UsbWebcam:
         print('Webcam initiated')
         
 
-    def CloseCamera(self):
+    def CloseCamera(self) -> None:
         self.vc.release()
 
     def GetFrame(self):
@@ -19,7 +19,7 @@ class UsbWebcam:
             
             
 
-    def GetFeed(self):
+    def GetFeed(self) -> None:
         try:
             cv2.namedWindow("preview")
 
