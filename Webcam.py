@@ -11,11 +11,8 @@ class UsbWebcam:
         self.vc.release()
 
     def GetFrame(self):
-        try:
-            _, frame = self.vc.read()
-            return frame
-        finally:
-            self.CloseCamera()
+        _, image = self.vc.read()
+        return image
             
             
 
