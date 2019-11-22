@@ -1,4 +1,4 @@
-from MyWebcam import UsbWebcam
+from Webcam import UsbWebcam
 from AudioPlayer import AudioPlayer
 
 def main():
