@@ -19,24 +19,31 @@ class AudioPlayer:
 
     def Play(self, sound: str) -> None:
         if sound == 'FirstCheckpointReached.mp3' and not self.FirstCheckpointReached.is_alive():
+            self.FirstCheckpointReached = Process(target=self._play, args=(self.SoundBasePath + 'FirstCheckpointReached.mp3', ))
             self.KillOtherSounds()
-            self.FirstCheckpointReached.run()
+            self.FirstCheckpointReached.start()
         elif sound == 'SecondCheckpointReached.mp3' and not self.SecondCheckpointReached.is_alive():
+            self.SecondCheckpointReached = Process(target=self._play, args=(self.SoundBasePath + 'SecondCheckpointReached.mp3', ))
             self.KillOtherSounds()
-            self.SecondCheckpointReached.run()
+            self.SecondCheckpointReached.start()
         elif sound == 'FinalCheckpointReached.mp3' and not self.FinalCheckpointReached.is_alive():
+            self.FinalCheckpointReached = Process(target=self._play, args=(self.SoundBasePath + 'FinalCheckpointReached.mp3', ))
             self.KillOtherSounds()
-            self.FinalCheckpointReached.run()
+            self.FinalCheckpointReached.start()
         elif sound == 'CollisionWarning.mp3' and not self.CollissionWarning.is_alive() and self.IsPlaying == False:
-            self.CollissionWarning.run()
+            self.CollissionWarning = Process(target=self._play, args=(self.SoundBasePath + 'CollisionWarning.mp3', ))
+            self.CollissionWarning.start()
         elif sound == 'RouteDeviation.mp3' and not self.RouteDeviation.is_alive() and self.IsPlaying == False:
-            self.RouteDeviation.run()
+            self.RouteDeviation = Process(target=self._play, args=(self.SoundBasePath + 'RouteDeviation.mp3', ))
+            self.RouteDeviation.start()
         elif sound == 'SafeCross.mp3' and not self.SafeCross.is_alive():
+            self.SafeCross = Process(target=self._play, args=(self.SoundBasePath + 'SafeCross.mp3', ))
             self.KillOtherSounds()
-            self.SafeCross.run()
+            self.SafeCross.start()
         elif sound == 'UnsafeCross.mp3' and not self.UnsafeCross.is_alive():
+            self.UnsafeCross = Process(target=self._play, args=(self.SoundBasePath + 'UnsafeCross.mp3', ))
             self.KillOtherSounds()
-            self.UnsafeCross.run()
+            self.UnsafeCross.start()
         else:
             return
 
