@@ -22,7 +22,8 @@ def main():
 
 
 def CoordinateNavigation(coord, audio):
-    checkpoints = [(56.171977, 10.187193), (56.171944,10.187414), (56.171837, 10.187364)]
+    #                 Start,                   First,                 Second,                    Final
+    checkpoints = [(56.171977, 10.187193), (56.171944,10.187414), (56.171927, 10.187406), (56.171837, 10.187364)]
     checkpointReached = 1
     file = open('data4.ubx', 'r')
 
@@ -42,17 +43,21 @@ def CoordinateNavigation(coord, audio):
 
                 if distToCheckpoint <= 50:
                     if(checkpointReached == len(checkpoints) - 1):
-                        audio.Play("./Sounds/perfect.mp3")
+                        audio.Play("FinalCheckpointReached.mp3")
+                        break
+                    if(checkpointReached == len(checkpoints) - 2):
+                        audio.Play("SecondCheckpointReached.mp3")
+                        #Handle roadcrossing
                         break
                     else:
                         checkpointReached += 1
-                        audio.Play("./Sounds/firstblood.mp3")
+                        audio.Play("FirstCheckpointReached.mp3")
 
                 distToLine = coord.minDistanceBetweenLineAndPoint(checkpoints[checkpointReached - 1][0], checkpoints[checkpointReached - 1][1], checkpoints[checkpointReached][0],
                                 checkpoints[checkpointReached][1], latitude, longitude)
 
                 if distToLine >= 50:
-                    audio.Play("./Sounds/wickedsick.mp3")
+                    audio.Play("RouteDeviation.mp3")
 
         except:
             print(f"Failed to read line probably because of random char")
@@ -63,7 +68,7 @@ def CameraNavigation(cam, ml, audio):
         frame = cam.GetFrame()
         image, objectClose = ml.ProcessImage(frame)
         if(objectClose):
-            #audio.Play("./Sounds/ultrakill.mp3")
+            audio.Play("CollisionWarning.mp3")
             print('Object is close')
         cv2.imshow("Image", image)
 
