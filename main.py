@@ -45,18 +45,22 @@ def CoordinateNavigation(coord, audio, cam, ml):
                 if distToCheckpoint <= 100:
                     if(checkpointReached == len(checkpoints) - 1):
                         audio.Play("FinalCheckpointReached.mp3")
+                        print('Final Checkpoint reached')
                         break
                     if(checkpointReached == len(checkpoints) - 2):
-                        #audio.Play("SecondCheckpointReached.mp3")
+                        print('Second Checkpoint reached')
                         audio.PlayBlocking("SecondCheckpointReached.mp3")
                         global SAFE_PASSING
                         if(SAFE_PASSING == True):
+                            print('Safe to cross')
                             audio.Play("SafeCross.mp3")
                             checkpointReached += 1
                         else:
+                            print('Unsafe to cross')
                             audio.Play("UnsafeCross.mp3")
                     else:
                         checkpointReached += 1
+                        print('First Checkpoint reached')
                         audio.Play("FirstCheckpointReached.mp3")
 
                 distToLine = coord.minDistanceBetweenLineAndPoint(checkpoints[checkpointReached - 1][0], checkpoints[checkpointReached - 1][1], checkpoints[checkpointReached][0],
