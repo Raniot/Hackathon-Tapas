@@ -1,9 +1,12 @@
 from playsound import playsound
-import time
+from threading import Thread
 
 class AudioPlayer:
     def __init__(self):
-        self.Timer = time.time()
+        self.thread = Thread()
 
     def Play(self, filePath: str) -> None:
-        playsound(filePath, block=False)
+        if not self.thread.is_alive():
+            self.thread = Thread(target=playsound, args=(filePath, ))
+            self.thread.start()
+        

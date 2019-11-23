@@ -8,8 +8,8 @@ from threading import Thread
 import time
 
 def main():
-    cam = UsbWebcam()
-    ml = Yolo()
+    #cam = UsbWebcam()
+    #ml = Yolo()
     coord = Coordinate()
     audio = AudioPlayer()
 
@@ -17,8 +17,8 @@ def main():
     navigation = Thread(target=CoordinateNavigation, args=(coord, audio))
     navigation.start()
     
-    camera = Thread(target=CameraNavigation, args=(cam, ml))
-    camera.start()
+    #camera = Thread(target=CameraNavigation, args=(cam, ml))
+    #camera.start()
 
 def CoordinateNavigation(coord, audio):
     checkpoints = [(56.171977, 10.187193), (56.171944, 10.187414), (56.171837, 10.187364)]
