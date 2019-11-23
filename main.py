@@ -49,7 +49,7 @@ def CoordinateNavigation(coord, audio, cam, ml):
                         break
                     if(checkpointReached == len(checkpoints) - 2):
                         print('Second Checkpoint reached')
-                        audio.PlayBlocking("SecondCheckpointReached.mp3")
+                        audio.Play("SecondCheckpointReached.mp3")
                         global SAFE_PASSING
                         if(SAFE_PASSING == True):
                             print('Safe to cross')

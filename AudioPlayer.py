@@ -5,10 +5,16 @@ import time
 class AudioPlayer:
     def __init__(self):
         self.SoundBasePath = "./Sounds/"
+        self.Process = Process()
 
     def Play(self, sound: str):
-        playsound(self.SoundBasePath + sound, block=False)
+        if not self.Process.is_alive():
+            self.Process = Process(target=playsound, args=(self.SoundBasePath + sound, True))
+            self.Process.start()
 
+    def Stop(self):
+        self.Process.terminate()
+        time.sleep(0.2)
     #     self.FirstCheckpointReached = Process(target=self._play, args=(self.SoundBasePath + 'FirstCheckpointReached.mp3', ))
     #     self.SecondCheckpointReached = Process(target=self._play, args=(self.SoundBasePath + 'SecondCheckpointReached.mp3', ))
     #     self.FinalCheckpointReached = Process(target=self._play, args=(self.SoundBasePath + 'FinalCheckpointReached.mp3', ))
