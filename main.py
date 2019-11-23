@@ -4,6 +4,8 @@ from Yolo import Yolo
 from cv2 import cv2 
 from Coordinate import Coordinate
 from geopy.distance import geodesic
+from threading import Thread
+
 
 def main():
     cam = UsbWebcam()
@@ -12,18 +14,27 @@ def main():
     audio = AudioPlayer()
 
 
-    #1-thread work
+    navigation = Thread(target=CoordinateNavigation, args=(coord, audio))
+    navigation.start()
+    
+    camera = Thread(target=CameraNavigation, args=(cam, ml))
+    camera.start()
+
+    
+
+
+def CoordinateNavigation(coord, audio):
     checkpoints = [(56.171977, 10.187193), (56.171944, 10.187414), (56.171837, 10.187364)]
     checkpointReached = 1
-
     file = open('data.ubx', 'r')
+
     while True:
         try:
             line = file.readline()
             if not line:
                 time.sleep(0.1)
             elif line.find('$GNGLL') >=0 and len(line) == 51:
-                print(line)
+                #print(line)
                 latitude = float(line[7:9]) + float(line[9:17])/60
                 longitude = float(line[20:23]) + float(line[23:31])/60
                 pos = (latitude, longitude)
@@ -48,8 +59,7 @@ def main():
             print(f"Failed to read line probably because of random char")
 
 
-
-    #1-thread work
+def CameraNavigation(cam, ml):
     while True:
         frame = cam.GetFrame()
         image = ml.ProcessImage(frame)
@@ -61,8 +71,6 @@ def main():
 
 
     cam.CloseCamera()
-
-
 
 if __name__ == "__main__":
     main()

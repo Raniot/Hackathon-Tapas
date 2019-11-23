@@ -36,6 +36,7 @@ class Coordinate:
         # print(f"bearing 2: {bearing2}")  
         # print(f"distance AC: {distanceAC}")  
         # print(f"min distance km: {min_distance}")
-        print(f"min distance to line in m: {min_distance*1000}")
-        print(f"min distance to line in cm: {min_distance*1000*100}")
-        return min_distance*1000*100
+        #print(f"min distance to line in m: {min_distance*1000}")
+        distInCm = min_distance*1000*100
+        print(f"min distance to line in cm: {distInCm}")
+        return distInCm
