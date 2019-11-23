@@ -22,7 +22,7 @@ class AudioPlayer:
         elif sound == 'FinalCheckpointReached.mp3' and not self.FinalCheckpointReached.is_alive():
             self.FinalCheckpointReached = Thread(target=playsound, args=(self.SoundBasePath + sound, ))
             self.FinalCheckpointReached.start()
-        elif sound == 'CollissionWarning.mp3' and not self.CollissionWarning.is_alive():
+        elif sound == 'CollisionWarning.mp3' and not self.CollissionWarning.is_alive():
             self.CollissionWarning = Thread(target=playsound, args=(self.SoundBasePath + sound, ))
             self.CollissionWarning.start()
         elif sound == 'RouteDeviation.mp3' and not self.RouteDeviation.is_alive():
