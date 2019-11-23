@@ -24,7 +24,7 @@ def main():
 
 def CoordinateNavigation(coord, audio, cam, ml):
     #                 Start,                   First,                 Second,                    Final
-    checkpoints = [(56.171977, 10.187193), (56.171944,10.187414), (56.171927, 10.187406), (56.171837, 10.187364)]
+    checkpoints = [(56.171977, 10.187193), (56.171939, 10.187473), (56.171915, 10.187458), (56.171824, 10.187403)]
     checkpointReached = 1
     file = open('data6.ubx', 'r')
 
@@ -42,7 +42,7 @@ def CoordinateNavigation(coord, audio, cam, ml):
                     pos, checkpoints[checkpointReached]).meters*100
                 print(f"Distance to destination in cm: {distToCheckpoint}")
 
-                if distToCheckpoint <= 50:
+                if distToCheckpoint <= 100:
                     if(checkpointReached == len(checkpoints) - 1):
                         audio.Play("FinalCheckpointReached.mp3")
                         break
@@ -62,7 +62,7 @@ def CoordinateNavigation(coord, audio, cam, ml):
                 distToLine = coord.minDistanceBetweenLineAndPoint(checkpoints[checkpointReached - 1][0], checkpoints[checkpointReached - 1][1], checkpoints[checkpointReached][0],
                                 checkpoints[checkpointReached][1], latitude, longitude)
 
-                if distToLine >= 50:
+                if distToLine >= 70:
                     audio.Play("RouteDeviation.mp3")
 
         except:
