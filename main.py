@@ -26,7 +26,7 @@ def CoordinateNavigation(coord, audio, cam, ml):
     #                 Start,                   First,                 Second,                    Final
     checkpoints = [(56.171977, 10.187193), (56.171938, 10.187448), (56.171915, 10.187440), (56.171832, 10.187397)]
     checkpointReached = 1
-    file = open('data6.ubx', 'r')
+    file = open('dataA.ubx', 'r')
 
     while True:
         try:
