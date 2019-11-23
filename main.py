@@ -23,7 +23,7 @@ def main():
 def CoordinateNavigation(coord, audio):
     checkpoints = [(56.171977, 10.187193), (56.171944, 10.187414), (56.171837, 10.187364)]
     checkpointReached = 1
-    file = open('data2.ubx', 'r')
+    file = open('data1.ubx', 'r')
 
     while True:
         try:
@@ -40,17 +40,17 @@ def CoordinateNavigation(coord, audio):
 
                 if distToCheckpoint <= 50:
                     if(checkpointReached == len(checkpoints) - 1):
-                        audio.play(r'./Sounds/perfect.mp3')
+                        audio.Play("./Sounds/perfect.mp3")
                         break
                     else:
                         checkpointReached += 1
-                        audio.play(r'./Sounds/firstblood.mp3')
+                        audio.Play("./Sounds/firstblood.mp3")
 
                 distToLine = coord.minDistanceBetweenLineAndPoint(checkpoints[checkpointReached - 1][0], checkpoints[checkpointReached - 1][1], checkpoints[checkpointReached][0], 
                     checkpoints[checkpointReached][1], latitude, longitude)
                 
                 if distToLine >= 50:
-                    audio.play(r'./Sounds/wickedsick.mp3')
+                    audio.Play("./Sounds/wickedsick.mp3")
 
         except:
             print(f"Failed to read line probably because of random char")
