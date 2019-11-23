@@ -17,7 +17,7 @@ def main():
     navigation = Thread(target=CoordinateNavigation, args=(coord, audio))
     navigation.start()
 
-    camera = Thread(target=CameraNavigation, args=(cam, ml))
+    camera = Thread(target=CameraNavigation, args=(cam, ml, audio))
     camera.start()
 
 
@@ -59,7 +59,7 @@ def CoordinateNavigation(coord, audio):
             print(f"Failed to read line probably because of random char")
 
 
-def CameraNavigation(cam, ml):
+def CameraNavigation(cam, ml, audio):
     while True:
         frame = cam.GetFrame()
         image, objectClose = ml.ProcessImage(frame)
