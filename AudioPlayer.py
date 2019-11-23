@@ -48,22 +48,28 @@ class AudioPlayer:
             return
 
     def _play(self, sound):
-        self.IsPlaying = True
-        playsound(sound, block=True)
-        self.IsPlaying = False
+        try:
+            self.IsPlaying = True
+            playsound(sound, block=True)
+            self.IsPlaying = False
+        except:
+            pass
 
     def KillOtherSounds(self):
-        if self.FirstCheckpointReached.is_alive():
-            self.FirstCheckpointReached.terminate()
-        if self.SecondCheckpointReached.is_alive():
-            self.SecondCheckpointReached.terminate()
-        if self.FinalCheckpointReached.is_alive():
-            self.FinalCheckpointReached.terminate()
-        if self.CollissionWarning.is_alive():
-            self.CollissionWarning.terminate()
-        if self.RouteDeviation.is_alive():
-            self.RouteDeviation.terminate()
-        if self.SafeCross.is_alive():
-            self.SafeCross.terminate()
-        if self.UnsafeCross.is_alive():
-            self.UnsafeCross.terminate()
+        try:
+            if self.FirstCheckpointReached.is_alive():
+                self.FirstCheckpointReached.terminate()
+            if self.SecondCheckpointReached.is_alive():
+                self.SecondCheckpointReached.terminate()
+            if self.FinalCheckpointReached.is_alive():
+                self.FinalCheckpointReached.terminate()
+            if self.CollissionWarning.is_alive():
+                self.CollissionWarning.terminate()
+            if self.RouteDeviation.is_alive():
+                self.RouteDeviation.terminate()
+            if self.SafeCross.is_alive():
+                self.SafeCross.terminate()
+            if self.UnsafeCross.is_alive():
+                self.UnsafeCross.terminate()
+        except:
+            pass
