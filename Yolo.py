@@ -59,7 +59,7 @@ class Yolo:
                 color = [int(c) for c in self.Colors[classIDs[i]]]
                 cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
                 
-                if self.Labels[classIDs[i]] == 'Car' or self.Labels[classIDs[i]] == 'Bicycle'
+                if self.Labels[classIDs[i]] == 'Car' or self.Labels[classIDs[i]] == 'Bicycle':
                     SafePassing = False
                 
                 text = "{}: {:.4f}".format(self.Labels[classIDs[i]], confidences[i])
