@@ -47,7 +47,8 @@ def CoordinateNavigation(coord, audio, cam, ml):
                         audio.Play("FinalCheckpointReached.mp3")
                         break
                     if(checkpointReached == len(checkpoints) - 2):
-                        audio.Play("SecondCheckpointReached.mp3")
+                        #audio.Play("SecondCheckpointReached.mp3")
+                        audio.PlayBlocking("SecondCheckpointReached.mp3")
                         global SAFE_PASSING
                         if(SAFE_PASSING == True):
                             audio.Play("SafeCross.mp3")

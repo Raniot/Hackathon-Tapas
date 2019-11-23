@@ -4,6 +4,7 @@ import time
 from cv2 import cv2
 import os
 from AudioPlayer import AudioPlayer
+from threading import Timer
 
 class Yolo:
     def __init__(self):
@@ -13,6 +14,10 @@ class Yolo:
         self.Model = cv2.dnn.readNetFromDarknet(
             "./yolo-coco/yolov3.cfg", "./yolo-coco/yolov3.weights")
         self.LayerNames = [self.Model.getLayerNames()[i[0] - 1] for i in self.Model.getUnconnectedOutLayers()]
+        self.SafePassing = True
+
+    def _SetSafePassingTrue(self):
+        self.SafePassing = True
 
     def ProcessImage(self, image):
         imageHeight, imageWidth = image.shape[:2]
@@ -49,7 +54,6 @@ class Yolo:
                     classIDs.append(classID)
 
         idxs = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.3)
-        SafePassing = True
         
         if len(idxs) > 0:
             for i in idxs.flatten():
@@ -60,7 +64,8 @@ class Yolo:
                 cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
                 
                 if self.Labels[classIDs[i]] == 'Car' or self.Labels[classIDs[i]] == 'Bicycle':
-                    SafePassing = False
+                    self.SafePassing = False
+                    Timer(7, self._SetSafePassingTrue)
                 
                 text = "{}: {:.4f}".format(self.Labels[classIDs[i]], confidences[i])
                 cv2.putText(image, text, (x, y - 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
@@ -74,4 +79,4 @@ class Yolo:
                 if squareSize >= 0.25 and mid_x > 0.15 and mid_x < 0.85:
                     objectClose = True
 
-        return image, objectClose, SafePassing
+        return image, objectClose, self.SafePassing

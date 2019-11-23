@@ -12,6 +12,9 @@ class AudioPlayer:
         self.UnsafeCross = Thread()
         self.SoundBasePath = "./Sounds/"
 
+    def PlayBlocking(self, sound: str) -> None:
+        playsound(self.SoundBasePath + sound, block=True)
+
     def Play(self, sound: str) -> None:
         if sound == 'FirstCheckpointReached.mp3' and not self.FirstCheckpointReached.is_alive():
             self.FirstCheckpointReached = Thread(target=playsound, args=(self.SoundBasePath + sound, ))
