@@ -7,6 +7,9 @@ def main():
     audio.Play('FirstCheckpointReached.mp3')
     time.sleep(2.3)
     audio.KillOtherSounds()
+    audio.Play('FirstCheckpointReached.mp3')
+    audio.Play('FirstCheckpointReached.mp3')
+    time.sleep(5)
     # audio.PlayBlocking("SecondCheckpointReached.mp3")
     
 

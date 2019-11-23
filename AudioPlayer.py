@@ -1,5 +1,6 @@
 from playsound import playsound
 from multiprocessing import Process
+import time
 
 class AudioPlayer:
     def __init__(self):
@@ -71,5 +72,6 @@ class AudioPlayer:
                 self.SafeCross.terminate()
             if self.UnsafeCross.is_alive():
                 self.UnsafeCross.terminate()
+            time.sleep(0.2)
         except:
             pass
