@@ -5,7 +5,6 @@ from cv2 import cv2
 import os
 from AudioPlayer import AudioPlayer
 
-
 class Yolo:
     def __init__(self):
         self.Labels = open("./yolo-coco/coco.names").read().strip().split("\n")
@@ -63,11 +62,13 @@ class Yolo:
                 cv2.putText(image, text, (x, y - 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
-                mid_x = (x + w)/2
-                apx_distance = round(((1 - (y - h))**4), 1)
+                widthProcent = w/imageWidth
+                heightProcent = h/imageHeight
 
-                if apx_distance <= 0.5:
-                    if mid_x > 0.3 and mid_x < 0.7:
-                        objectClose = True
+                squareSize = widthProcent * heightProcent
+                mid_x = (x + w/2)/imageWidth
+
+                if squareSize >= 0.25 and mid_x > 0.15 and mid_x < 0.85:
+                    objectClose = True
 
         return image, objectClose

@@ -63,7 +63,8 @@ def CameraNavigation(cam, ml, audio):
         frame = cam.GetFrame()
         image, objectClose = ml.ProcessImage(frame)
         if(objectClose):
-            audio.Play("./Sounds/ultrakill.mp3")
+            #audio.Play("./Sounds/ultrakill.mp3")
+            print('Object is close')
         cv2.imshow("Image", image)
 
         key = cv2.waitKey(20)
