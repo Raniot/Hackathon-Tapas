@@ -8,6 +8,8 @@ class AudioPlayer:
         self.FinalCheckpointReached = Thread()
         self.CollissionWarning = Thread()
         self.RouteDeviation = Thread()
+        self.SafeCross = Thread()
+        self.UnsafeCross = Thread()
         self.SoundBasePath = "./Sounds/"
 
     def Play(self, sound: str) -> None:
@@ -26,6 +28,12 @@ class AudioPlayer:
         elif sound == 'RouteDeviation.mp3' and not self.RouteDeviation.is_alive():
             self.RouteDeviation = Thread(target=playsound, args=(self.SoundBasePath + sound, ))
             self.RouteDeviation.start()
+        elif sound == 'SafeCross.mp3' and not self.SafeCross.is_alive():
+            self.SafeCross = Thread(target=playsound, args=(self.SoundBasePath + sound, ))
+            self.SafeCross.start()
+        elif sound == 'UnsafeCross.mp3' and not self.UnsafeCross.is_alive():
+            self.UnsafeCross = Thread(target=playsound, args=(self.SoundBasePath + sound, ))
+            self.UnsafeCross.start()
         else:
             return
         

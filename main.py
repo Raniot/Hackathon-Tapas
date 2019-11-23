@@ -7,6 +7,7 @@ from geopy.distance import geodesic
 from threading import Thread
 import time
 
+SAFE_PASSING = True
 
 def main():
     cam = UsbWebcam()
@@ -14,14 +15,14 @@ def main():
     coord = Coordinate()
     audio = AudioPlayer()
 
-    navigation = Thread(target=CoordinateNavigation, args=(coord, audio))
+    navigation = Thread(target=CoordinateNavigation, args=(coord, audio, cam, ml))
     navigation.start()
 
     camera = Thread(target=CameraNavigation, args=(cam, ml, audio))
     camera.start()
 
 
-def CoordinateNavigation(coord, audio):
+def CoordinateNavigation(coord, audio, cam, ml):
     #                 Start,                   First,                 Second,                    Final
     checkpoints = [(56.171977, 10.187193), (56.171944,10.187414), (56.171927, 10.187406), (56.171837, 10.187364)]
     checkpointReached = 1
@@ -47,8 +48,11 @@ def CoordinateNavigation(coord, audio):
                         break
                     if(checkpointReached == len(checkpoints) - 2):
                         audio.Play("SecondCheckpointReached.mp3")
-                        #Handle roadcrossing
-                        break
+                        global SAFE_PASSING
+                        if(SAFE_PASSING == True):
+                            audio.Play("SafeCross.mp3")
+                        else:
+                            audio.Play("UnsafeCross.mp3")
                     else:
                         checkpointReached += 1
                         audio.Play("FirstCheckpointReached.mp3")
@@ -64,9 +68,11 @@ def CoordinateNavigation(coord, audio):
 
 
 def CameraNavigation(cam, ml, audio):
+    global SAFE_PASSING
+
     while True:
         frame = cam.GetFrame()
-        image, objectClose = ml.ProcessImage(frame)
+        image, objectClose, SAFE_PASSING = ml.ProcessImage(frame)
         if(objectClose):
             audio.Play("CollisionWarning.mp3")
             print('Object is close')

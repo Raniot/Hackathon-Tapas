@@ -49,7 +49,8 @@ class Yolo:
                     classIDs.append(classID)
 
         idxs = cv2.dnn.NMSBoxes(boxes, confidences, 0.5, 0.3)
-
+        SafePassing = True
+        
         if len(idxs) > 0:
             for i in idxs.flatten():
                 (x, y) = (boxes[i][0], boxes[i][1])
@@ -57,10 +58,12 @@ class Yolo:
 
                 color = [int(c) for c in self.Colors[classIDs[i]]]
                 cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
-                text = "{}: {:.4f}".format(
-                    self.Labels[classIDs[i]], confidences[i])
-                cv2.putText(image, text, (x, y - 5),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
+                
+                if self.Labels[classIDs[i]] == 'Car' or self.Labels[classIDs[i]] == 'Bicycle'
+                    SafePassing = False
+                
+                text = "{}: {:.4f}".format(self.Labels[classIDs[i]], confidences[i])
+                cv2.putText(image, text, (x, y - 5),cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
                 widthProcent = w/imageWidth
                 heightProcent = h/imageHeight
@@ -71,4 +74,4 @@ class Yolo:
                 if squareSize >= 0.25 and mid_x > 0.15 and mid_x < 0.85:
                     objectClose = True
 
-        return image, objectClose
+        return image, objectClose, SafePassing
