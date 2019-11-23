@@ -1,8 +1,9 @@
 from playsound import playsound
+import time
 
 class AudioPlayer:
     def __init__(self):
-        pass
+        self.Timer = time.time()
 
-    def play(self, filePath: str) -> None:
-        playsound(filePath)
+    def Play(self, filePath: str) -> None:
+        playsound(filePath, block=False)
