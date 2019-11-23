@@ -5,7 +5,7 @@ from cv2 import cv2
 from Coordinate import Coordinate
 from geopy.distance import geodesic
 from threading import Thread
-
+import time
 
 def main():
     cam = UsbWebcam()
@@ -20,13 +20,10 @@ def main():
     camera = Thread(target=CameraNavigation, args=(cam, ml))
     camera.start()
 
-    
-
-
 def CoordinateNavigation(coord, audio):
     checkpoints = [(56.171977, 10.187193), (56.171944, 10.187414), (56.171837, 10.187364)]
     checkpointReached = 1
-    file = open('data.ubx', 'r')
+    file = open('data2.ubx', 'r')
 
     while True:
         try:

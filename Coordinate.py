@@ -1,6 +1,4 @@
-import time
 import math
-from geopy.distance import geodesic
 
 class Coordinate:
     def __init__(self):
