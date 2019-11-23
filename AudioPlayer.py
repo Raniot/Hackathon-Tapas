@@ -20,23 +20,23 @@ class AudioPlayer:
     def Play(self, sound: str) -> None:
         if sound == 'FirstCheckpointReached.mp3' and not self.FirstCheckpointReached.is_alive():
             self.KillOtherSounds()
-            self.FirstCheckpointReached.start()
+            self.FirstCheckpointReached.run()
         elif sound == 'SecondCheckpointReached.mp3' and not self.SecondCheckpointReached.is_alive():
             self.KillOtherSounds()
-            self.SecondCheckpointReached.start()
+            self.SecondCheckpointReached.run()
         elif sound == 'FinalCheckpointReached.mp3' and not self.FinalCheckpointReached.is_alive():
             self.KillOtherSounds()
-            self.FinalCheckpointReached.start()
+            self.FinalCheckpointReached.run()
         elif sound == 'CollisionWarning.mp3' and not self.CollissionWarning.is_alive() and self.IsPlaying == False:
-            self.CollissionWarning.start()
+            self.CollissionWarning.run()
         elif sound == 'RouteDeviation.mp3' and not self.RouteDeviation.is_alive() and self.IsPlaying == False:
-            self.RouteDeviation.start()
+            self.RouteDeviation.run()
         elif sound == 'SafeCross.mp3' and not self.SafeCross.is_alive():
             self.KillOtherSounds()
-            self.SafeCross.start()
+            self.SafeCross.run()
         elif sound == 'UnsafeCross.mp3' and not self.UnsafeCross.is_alive():
             self.KillOtherSounds()
-            self.UnsafeCross.start()
+            self.UnsafeCross.run()
         else:
             return
 
